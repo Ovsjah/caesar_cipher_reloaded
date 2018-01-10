@@ -2,19 +2,14 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 
 get '/' do
-  erb :index  
-end
-
-post '/' do
   str = params['str']
   shift = params['shift'].to_i
-  n_str = caesar_cipher(str, shift)
-  
+  n_str = caesar_cipher(str, shift) unless str.nil?
+
   erb :index, :locals => {:new_string => n_str}
 end
 
 def caesar_cipher(str, shift)
-  shift = 25 if shift > 25
   n_str = ""
    
   str.each_char do |char|
